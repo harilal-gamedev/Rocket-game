@@ -13,14 +13,17 @@ public class collisionHandler : MonoBehaviour
     //[SerializeField] ParticleSystem successParticle;
     //[SerializeField] ParticleSystem crashParticle;
 
-    //AudioSource audioSource;
+    AudioSource audioSource;
+
+    RocketMovement rocketmove;
 
     bool isTransitioning = false;
 
 
     private void Start()
     {
-        //  audioSource = GetComponent<AudioSource>();
+        audioSource = GetComponent<AudioSource>();
+        rocketmove = GetComponent<RocketMovement>();
     }
 
 
@@ -59,6 +62,12 @@ public class collisionHandler : MonoBehaviour
         // audioSource.Stop();
         // audioSource.PlayOneShot(crash);
         // crashParticle.Play();
+
+        // if the rocket hits obstacles then i want to stop the particle sytm and the sound . 
+        rocketmove.mainEngineParticle.Stop();
+        rocketmove.leftThrusterParticle.Stop();
+        rocketmove.rightThrusterParticle.Stop();
+        rocketmove.audioSource.Stop();
         GetComponent<RocketMovement>().enabled = false;
         Invoke("ReloadLevel", levelLoadDelay);
     }
